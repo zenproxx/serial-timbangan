@@ -12,8 +12,10 @@ var selectedPort = "";
 var selectedSpeed = 9600;
 var connected = false;
 
-$(function() {
-	
+
+$(document).ready(function() {
+
+	//tes()
 	// get the available COM posts and add them to the combo list
 	chrome.serial.getDevices(function(ports) {
 		
@@ -96,7 +98,6 @@ function onConnect(connectionInfo) {
 	
 	// check if the connection was successful
 	if(connectionInfo) {
-		
 		connectionId = connectionInfo.connectionId;
 		connected = true;
 		updateGUI();
@@ -130,8 +131,14 @@ function onReceive(info) {
 		
 		// convert the ArrayBuffer to string and add to the textarea
 		var str = convertArrayBufferToString(info.data);
-		$("#receive_textarea").append(str);
-		$("#receive_textarea").scrollTop($("#receive_textarea")[0].scrollHeight);
+		var angka_timbangan=str.substr(7,7)
+		if (parseFloat(angka_timbangan)<=0)
+		{
+			Timbangan.status=0
+		}
+		Timbangan.satu=parseFloat(angka_timbangan)
+		web_port.postMessage(str)
+		console.log(str)
 	}
 }
 
@@ -152,3 +159,14 @@ var convertStringToArrayBuffer=function(str) {
 	return buf;
 };
 
+chrome.runtime.onMessageExternal.addListener(
+	function(request, sender, sendResponse) {
+	  console.log("tes")
+	});
+
+var web_port="";
+	chrome.runtime.onConnectExternal.addListener(function(port) {
+		web_port=port
+		port.postMessage("Terhubung")
+		console.log("Terhubung")
+	  });
