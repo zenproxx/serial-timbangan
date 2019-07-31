@@ -4,6 +4,8 @@ var Timbangan=new Vue({
     data:{
         satu:3000,
         status:0,
+        tampil:true,
+        extensionid:chrome.runtime.id
      },
     methods:{
           handleTipBtn:function(){

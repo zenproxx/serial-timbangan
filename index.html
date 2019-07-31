@@ -10,11 +10,12 @@
     <body>
         <div id="app">
             <!-- app goes in here-->
+            <p>{{extensionid}}</p>
             <div class="col-md-12">
                 <div class="card">
                         <div class="card-body">
                             <h1 class="text-center" style="background: #2947ff; font-size: 160px; color: #fff; margin:0; padding:5px 10px;">{{satu}} Kg </h1>
-                            <hr>
+                            <hr> 
                             
                             <div v-if="status==0" class="alert alert-info bg-primary text-center">
                                 <h1 style="color: #fff;"><i class="fa fa-info-circle"></i> Tidak Ada Mobil..</h1>
@@ -27,30 +28,31 @@
                             <div v-if="status==2" class="alert alert-success  bg-success  text-center">
                                 <h1 style="color: #fff;"><i class="fa fa-check"></i> Selesai.. Silahkan Maju</h1>
                             </div>
+
+                            <button v-on:click="tampil=!tampil">Show/hide</button>
+                            <div v-show=tampil id="connect_line">
+                                <label for="serial_ports" id="serial_ports_label" class="label">Serial port:</label>
+                                <select id="serial_ports_combobox" class="combobox">
+                                </select>
+                                <label for="baud_rates" id="baud_rates_label" class="label">Speed:</label>
+                                <select id="baud_rates_combobox" class="combobox">
+                                    <option value="300">300 baud</option>
+                                    <option value="1200">1200 baud</option>
+                                    <option value="2400">2400 baud</option>
+                                    <option value="4800">4800 baud</option>
+                                    <option value="9600">9600 baud</option>
+                                    <option value="19200">19200 baud</option>
+                                    <option value="38400">38400 baud</option>
+                                    <option value="57600">57600 baud</option>
+                                    <option value="115200">115200 baud</option>
+                                </select>		
+                                <input type="button" id="connect_button" value="Connect" />	
+                        </div>
                         </div>
                 </div>		
         </div>
         </div>
-
-        <div id="connect_line">
-			<label for="serial_ports" id="serial_ports_label" class="label">Serial port:</label>
-			<select id="serial_ports_combobox" class="combobox">
-			</select>
-			<label for="baud_rates" id="baud_rates_label" class="label">Speed:</label>
-			<select id="baud_rates_combobox" class="combobox">
-				<option value="300">300 baud</option>
-				<option value="1200">1200 baud</option>
-				<option value="2400">2400 baud</option>
-				<option value="4800">4800 baud</option>
-				<option value="9600">9600 baud</option>
-				<option value="19200">19200 baud</option>
-				<option value="38400">38400 baud</option>
-				<option value="57600">57600 baud</option>
-				<option value="115200">115200 baud</option>
-			</select>		
-			<input type="button" id="connect_button" value="Connect" />	
-        </div>
-        
+     
          <script src='./assest/vue.js'></script>        
         <script src="./assest/app.js"></script>
         <script src="./main.js"></script>
