@@ -1,0 +1,12 @@
+body{
+    background: #000;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#app{max-width: 100%!important;}
+
+.wrapper{
+    background: #000;
+    width: 100%;
+}
