@@ -132,8 +132,14 @@ function onReceive(info) {
 		// convert the ArrayBuffer to string and add to the textarea
 		var str = convertArrayBufferToString(info.data);
 		var angka_timbangan=str.substr(7,7)
-		if (parseFloat(angka_timbangan)<=0)
+		var nilai_timbangan=parseFloat(angka_timbangan)
+		
+		if (nilai_timbangan>0 && Timbangan.status!=2)
 		{
+			//Sedang menimbang
+			Timbangan.status=1
+		}
+		if (nilai_timbangan<=0) {
 			Timbangan.status=0
 		}
 		Timbangan.satu=parseFloat(angka_timbangan)
@@ -159,14 +165,16 @@ var convertStringToArrayBuffer=function(str) {
 	return buf;
 };
 
-chrome.runtime.onMessageExternal.addListener(
-	function(request, sender, sendResponse) {
-	  console.log("tes")
-	});
-
 var web_port="";
 	chrome.runtime.onConnectExternal.addListener(function(port) {
 		web_port=port
 		port.postMessage("Terhubung")
 		console.log("Terhubung")
+
+		port.onMessage.addListener(function(msg) {
+			console.log(msg)
+			if (msg=='timbangan_selesai') {
+				Timbangan.status=2
+			}
+		});
 	  });
