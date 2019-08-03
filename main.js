@@ -1,6 +1,7 @@
 var connectionOptions = {
 	"bitrate": 9600,
-	"dataBits": "eight",
+  "bufferSize":512,
+	"dataBits": "seven",
 	"parityBit": "no",
 	"stopBits": "one",
 	"receiveTimeout": 500,
@@ -52,6 +53,9 @@ $(document).ready(function() {
 		}
 	});
 	
+  //copy id
+  $("#id_button").bind("click", tes)    
+
 	// bind a click event on the "send" button
 	$("#send_button").bind("click", function(event, ui) {
 		
@@ -123,6 +127,10 @@ function onDisconnect(result) {
 	else $.modal('<div id="title">Unable to disconnect</div>');
 }
 
+var str = "";
+var angka_timbangan="";
+var nilai_timbangan="";
+		
 // Callback function when new data is received
 function onReceive(info) {
 	
@@ -130,19 +138,19 @@ function onReceive(info) {
 	if (info.connectionId == connectionId && info.data) {
 		
 		// convert the ArrayBuffer to string and add to the textarea
-		var str = convertArrayBufferToString(info.data);
-		var angka_timbangan=str.substr(7,7)
-		var nilai_timbangan=parseFloat(angka_timbangan)
+		str = convertArrayBufferToString(info.data);
+		angka_timbangan=str.slice(-7)
+		nilai_timbangan=parseFloat(angka_timbangan)
 		
 		if (nilai_timbangan>0 && Timbangan.status!=2)
 		{
 			//Sedang menimbang
 			Timbangan.status=1
 		}
-		if (nilai_timbangan<=0) {
+		else if (nilai_timbangan<=0) {
 			Timbangan.status=0
 		}
-		Timbangan.satu=parseFloat(angka_timbangan)
+		Timbangan.satu=nilai_timbangan
 		web_port.postMessage(str)
 		console.log(str)
 	}

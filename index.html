@@ -25,8 +25,7 @@
                     <div class="col-md-12 col-sm-12 col-12">
 
                         <!-- input berisi value ID -->
-                        <input type="hidden" value="{{extensionid}}" id="myInput">
-
+                        
 
                         <div class="card">
                             <div class="card-body">
@@ -47,12 +46,13 @@
                                 </div>
 
                                 <button class="btn btn-warning btn-sm" v-on:click="tampil=!tampil">Tampil / sembunyikan opsi</button>
-                                <button class="btn btn-primary btn-sm" onclick="tes()">Ambil ID</button>
-
-
+                                <hr>
                                 <div v-show=tampil id="connect_line">
-                                    <hr>
+                                
+                                <button id="id_button" class="btn btn-primary btn-sm">Ambil ID</button>
+                                <input value="{{extensionid}}" id="myInput">  
 
+                                    
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-4">
                                             <label for="serial_ports" id="serial_ports_label" class="label">Serial port:</label>

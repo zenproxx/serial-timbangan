@@ -2,7 +2,7 @@ function tes() {
    var copyText = document.getElementById("myInput");
   copyText.select();
   document.execCommand("copy");
-  alert("Copied the text: " + copyText.value);}
+  console.log("Copied the text: " + copyText.value);}
 
 
 var Timbangan = new Vue({
